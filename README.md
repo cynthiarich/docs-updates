@@ -6,73 +6,85 @@
  
  Never forget to update your docs again! The Docs Updates action helps you detect changes in the folders and files you designate and opens an issue to remind you to update the documentation. You can assign the issue to a specific writer or team.
 
-## Change the Code
+## Using this action
 
-Most toolkit and CI/CD operations involve async operations so the action is run in an async function.
+To use this action in your project, you'll need to complete 2 steps:
 
-```javascript
-const core = require('@actions/core');
-...
+### Step 1: Create the docs-config.yml
 
-async function run() {
-  try {
-      ...
-  }
-  catch (error) {
-    core.setFailed(error.message);
-  }
-}
+The config is used to designate areas of responsibility within the product. When a pull request touches a file in one of the paths, a documentation issue will be opened and assigned to an individual or team as indicated in the YAML. 
 
-run()
-```
-
-See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/README.md#packages) for the various packages.
-
-## Package for distribution
-
-GitHub Actions will run the entry point from the action.yml. Packaging assembles the code into one file that can be checked in to Git, enabling fast and reliable execution and preventing the need to check in node_modules.
-
-Actions are run from GitHub repos.  Packaging the action will create a packaged action in the dist folder.
-
-Run prepare
-
-```bash
-npm run prepare
-```
-
-Since the packaged index.js is run from the dist folder.
-
-```bash
-git add dist
-```
-
-## Create a release branch
-
-Users shouldn't consume the action from master since that would be latest code and actions can break compatibility between major versions.
-
-Checkin to the v1 release branch
-
-```bash
-git checkout -b v1
-git commit -a -m "v1 release"
-```
-
-```bash
-git push origin v1
-```
-
-Your action is now published! :rocket:
-
-See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-
-## Usage
-
-You can now consume the action by referencing the v1 branch
+**Example `docs-config.yml` assigning individuals**
 
 ```yaml
-uses: cynthiarich/docs-updates@v1
-with:
-  milliseconds: 1000
+group: 'Info only'
+ path: 'README.md'
+ assignee: 'aperson'
+
+group: 'App function'
+ path: ['index.js', 'app/*']
+ assignee: 'anotherperson'
+```
+
+**Example `docs-config.yml` using a first responder model**
+
+```yaml
+group: 'All'
+ path: '*'
+ assignee: 'org/docs-first-responder'
+```
+
+### Step 2: Create the workflow file
+
+Next, you'll need to add a file to the project repository's `.github/workflows` directory:
+
+```yaml
+name: "docs-updates"
+on:
+ pull_request:
+ push:
+  branches:
+    - main
+    - 'releases/*'
+  paths-ignore:
+    - 'docs/*'
+
+jobs:
+ docs:
+  runs-on: ubuntu-latest
+  steps:
+  - uses: cynthiarich/docs-updates@main
+    with:
+      config: 'docs-config.yml'
+```
+
+**Optional** You can allow your developers to skip this workflow if they know documentation is not needed by adding a label to the pull request when it is opened:
+
+```yaml
+name: "docs-updates"
+on:
+ pull_request:
+ push:
+  branches:
+    - main
+    - 'releases/*'
+  paths-ignore:
+    - 'docs/*'
+
+jobs:
+ docs:
+  if: ${{ !contains(github.event.pull_request.labels.*.name, 'no-docs') }}
+  runs-on: ubuntu-latest
+  steps:
+  - uses: cynthiarich/docs-updates@main
+    with:
+      config: 'docs-config.yml'
+```
+
+**Optional:** You can also add the newly opened issue to a project board:
+
+```yaml
+show example here
 ```
 
 See the [actions tab](https://github.com/cynthiarich/docs-updates/actions) for runs of this action! :rocket:
