@@ -17,21 +17,21 @@ The config is used to designate areas of responsibility within the product. When
 **Example `docs-config.yml` assigning individuals**
 
 ```yaml
-group: 'Info only'
- path: 'README.md'
- assignee: 'aperson'
+- group: 'Info only'
+  path: 'README.md'
+  assignee: 'aperson'
 
-group: 'App function'
- path: ['index.js', 'app/*']
- assignee: 'anotherperson'
+- group: 'App function'
+  path: ['index.js', 'app/*']
+  assignee: 'anotherperson'
 ```
 
 **Example `docs-config.yml` using a first responder model**
 
 ```yaml
-group: 'All'
- path: '*'
- assignee: 'org/docs-first-responder'
+- group: 'All'
+  path: '*'
+  assignee: 'org/docs-first-responder'
 ```
 
 ### Step 2: Create the workflow file
