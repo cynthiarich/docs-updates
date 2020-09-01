@@ -1,4 +1,6 @@
 const core = require('@actions/core');
+const yaml = require('js-yaml');
+const fs = require('fs');
 //const wait = require('./wait');
 
 
@@ -7,6 +9,10 @@ async function run() {
   try {
     const config = core.getInput('config');
     core.info(`Retrieving config from ${config}`);
+
+    const doc = yaml.safeLoad(fs.readFileSync(config, 'utf8'));
+    const data = yaml.load(doc);
+    core.info(data);
 
     core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
     //await wait(parseInt(ms));

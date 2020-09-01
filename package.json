@@ -25,7 +25,8 @@
   },
   "homepage": "https://github.com/cynthiarich/docs-updates#readme",
   "dependencies": {
-    "@actions/core": "^1.1.1"
+    "@actions/core": "^1.1.1",
+    "js-yaml": "^3.14.0"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.24.0",
