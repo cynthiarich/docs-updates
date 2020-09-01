@@ -1,7 +1,7 @@
 {
-  "name": "javascript-action",
+  "name": "docs-helper",
   "version": "1.0.0",
-  "description": "JavaScript Action Template",
+  "description": "Helper action to detect app changes that may require docs updates.",
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
@@ -11,19 +11,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/javascript-action.git"
+    "url": "git+https://github.com/cynthiarich/docs-updates.git"
   },
   "keywords": [
     "GitHub",
     "Actions",
     "JavaScript"
   ],
-  "author": "",
+  "author": "Cynthia Rich",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/actions/javascript-action/issues"
+    "url": "https://github.com/cynthiarich/docs-updates/issues"
   },
-  "homepage": "https://github.com/actions/javascript-action#readme",
+  "homepage": "https://github.com/cynthiarich/docs-updates#readme",
   "dependencies": {
     "@actions/core": "^1.1.1"
   },

@@ -1,10 +1,10 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'Docs Updates'
+description: 'Detecting app changes that may require docs updates'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  config: 
+    description: 'location of config file'
     required: true
-    default: '1000'
+    default: 'docs-config.yml'
 outputs:
   time: # output will be available to future steps
     description: 'The message to output'
