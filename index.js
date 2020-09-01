@@ -12,8 +12,7 @@ async function run() {
 
     const doc = await yaml.safeLoad(fs.readFileSync(config, 'utf8'));
     const data = await yaml.load(doc);
-    echo `${data.group[0].path}`;
-    core.debug(`debugging stuff`);
+    core.debug(`content from yaml: ${data.group[0].path}`);
     core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
     //await wait(parseInt(ms));
     //core.info((new Date()).toTimeString());
