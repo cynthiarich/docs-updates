@@ -1,7 +1,9 @@
-- group: 'Info only'
-  path: 'README.md'
-  assignee: 'crichID'
+---
 
-- group: 'App function'
+groups: 
+- group: Info only
+  path: README.md
+  assignee: 'crichID'
+- group: App functionality
   path: index.js
-  assignee: 'cynthiarich'
+  assignee: cynthiarich
